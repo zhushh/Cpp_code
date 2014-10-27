@@ -1,0 +1,32 @@
+# Project: Project1
+# Makefile created by Dev-C++ 5.2.0.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = Client.o MidToLast.o $(RES)
+LINKOBJ  = Client.o MidToLast.o $(RES)
+LIBS     = -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc  
+INCS     = -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" 
+CXXINCS  = -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" 
+BIN      = Project1.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS   = $(INCS)  
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before Project1.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Project1.exe" $(LIBS)
+
+Client.o: Client.cpp
+	$(CPP) -c Client.cpp -o Client.o $(CXXFLAGS)
+
+MidToLast.o: MidToLast.cpp
+	$(CPP) -c MidToLast.cpp -o MidToLast.o $(CXXFLAGS)

@@ -1,0 +1,41 @@
+# Project: Project1
+# Makefile created by Dev-C++ 5.2.0.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = AccountTest.o Account.o VIPAccount.o Bank.o PersonalAccount.o $(RES)
+LINKOBJ  = AccountTest.o Account.o VIPAccount.o Bank.o PersonalAccount.o $(RES)
+LIBS     = -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc  
+INCS     = -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" 
+CXXINCS  = -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" 
+BIN      = Project1.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS   = $(INCS)  
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before Project1.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Project1.exe" $(LIBS)
+
+AccountTest.o: AccountTest.cpp
+	$(CPP) -c AccountTest.cpp -o AccountTest.o $(CXXFLAGS)
+
+Account.o: Account.cpp
+	$(CPP) -c Account.cpp -o Account.o $(CXXFLAGS)
+
+VIPAccount.o: VIPAccount.cpp
+	$(CPP) -c VIPAccount.cpp -o VIPAccount.o $(CXXFLAGS)
+
+Bank.o: Bank.cpp
+	$(CPP) -c Bank.cpp -o Bank.o $(CXXFLAGS)
+
+PersonalAccount.o: PersonalAccount.cpp
+	$(CPP) -c PersonalAccount.cpp -o PersonalAccount.o $(CXXFLAGS)
