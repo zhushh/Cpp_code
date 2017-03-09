@@ -11,6 +11,11 @@
 #include <string>
 using std::string;
 
+#define IF_COND_PRINT(cond, str) if (cond) { printf("%s", str); }
+#define IF_COND_EXIT(cond, status) if (cond) { exit(status); }
+#define IF_COND_PRINT_AND_EXIT(cond, str, status) \
+if (cond) { printf("%s", str); exit(status); }
+
 class Socket {
 public:
 	virtual bool send(string) = 0;
@@ -22,9 +27,14 @@ public:
 	Server(int);
 	Server(char*, int);
 	~Server();
+	void start();
+	bool send(string str);
+	bool recv(string str);
 private:
-	int fd;
-	struct sockaddr_in clientSock;
+	int servSock;
+	int clientSock;
+	struct sockaddr_in clientAddr;
+	void init(char*ip, int port);
 };
 
 class Client : public Socket {
@@ -32,11 +42,12 @@ public:
 	Client();
 	Client(char*, int);
 	~Client();
-	bool connect(char*, int);
+	bool connectTo(char*, int);
+	bool send(string str);
+	bool recv(string str);
 private:
-	int fd;
+	int servSock;
 };
-
 
 #endif
 
