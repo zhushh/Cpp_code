@@ -5,11 +5,13 @@
 #include <WinSock2.h>
 #include <stdio.h>
 #include <Windows.h>
+
 /* 要使用winsock API，就要包含ws2_32.lib这个库 */
 #pragma comment(lib, "ws2_32.lib")
 
+#include <iostream>
 #include <string>
-using std::string;
+using namespace std;
 
 #define IF_COND_PRINT(cond, str) if (cond) { printf("%s", str); }
 #define IF_COND_EXIT(cond, status) if (cond) { exit(status); }
@@ -27,14 +29,14 @@ public:
 	Server(int);
 	Server(char*, int);
 	~Server();
-	void start();
+	bool isAccepted();
 	bool send(string str);
 	bool recv(string str);
 private:
 	int servSock;
 	int clientSock;
 	struct sockaddr_in clientAddr;
-	void init(char*ip, int port);
+	void initBindingAndListening(char*ip, int port);
 };
 
 class Client : public Socket {
@@ -50,5 +52,3 @@ private:
 };
 
 #endif
-
-
