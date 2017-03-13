@@ -20,8 +20,8 @@ if (cond) { printf("%s", str); exit(status); }
 
 class Socket {
 public:
-    virtual bool send(string) = 0;
-    virtual bool recv(string) = 0;
+    virtual bool sendSTR(string) = 0;
+    virtual bool recvSTR(string&) = 0;
 };
 
 class Server : public Socket {
@@ -30,11 +30,11 @@ public:
     Server(char*, int);
     ~Server();
     bool isAccepted();
-    bool send(string str);
-    bool recv(string str);
+    bool sendSTR(string str);
+    bool recvSTR(string &str);
 private:
-    int servSock;
-    int clientSock;
+    unsigned int servSock;
+    unsigned int clientSock;
     struct sockaddr_in clientAddr;
     void initBindingAndListening(char*ip, int port);
 };
@@ -45,10 +45,10 @@ public:
     Client(char*, int);
     ~Client();
     bool connectTo(char*, int);
-    bool send(string str);
-    bool recv(string str);
+    bool sendSTR(string str);
+    bool recvSTR(string &str);
 private:
-    int servSock;
+    unsigned int servSock;
 };
 
 #endif
