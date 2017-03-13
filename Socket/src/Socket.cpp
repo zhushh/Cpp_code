@@ -43,8 +43,27 @@ bool Server::isAccepted() {
     return true;
 }
 
-bool Server::send(string str) { return true; }
-bool Server::recv(string str) { return true; }
+bool Server::sendSTR(string str) { 
+    int len = str.length();
+    int retVal = 0;
+    retVal = send(clientSock, str.c_str(), len, 0);
+    IF_COND_PRINT_AND_EXIT(retVal == SOCKET_ERROR, "socket send error!\n", -1);
+    if (retVal != len) {
+        return false;
+    }
+    return true; 
+}
+
+bool Server::recvSTR(string &str) { 
+    int len = 4096;
+    char buf[4096];
+    int retVal = 0; 
+    retVal = recv(clientSock, buf, len, 0);
+    IF_COND_PRINT_AND_EXIT(retVal == SOCKET_ERROR, "socket recv error!\n", -1);
+    buf[retVal] = '\0';
+    str = string(buf);
+    return true; 
+}
 
 Client::Client() {}
 Client::Client(char* ip, int port) { connectTo(ip, port); }
@@ -64,6 +83,25 @@ bool Client::connectTo(char* ip, int port) {
     return true;
 }
 
-bool Client::send(string str) { return true; }
-bool Client::recv(string str) { return true; }
+bool Client::sendSTR(string str) { 
+    int len = str.length();
+    int retVal = 0;
+    retVal = send(servSock, str.c_str(), len, 0);
+    IF_COND_PRINT_AND_EXIT(retVal == SOCKET_ERROR, "socket send error!\n", -1);
+    if (retVal != len) {
+        return false;
+    }
+    return true; 
+}
+
+bool Client::recvSTR(string &str) { 
+    int len = 4096;
+    char buf[4096];
+    int retVal = 0;
+    retVal = recv(servSock, buf, len, 0);
+    IF_COND_PRINT_AND_EXIT(retVal == SOCKET_ERROR, "socket recv error!\n", -1);
+    buf[retVal] = '\0';
+    str = string(buf);
+    return true; 
+}
 
