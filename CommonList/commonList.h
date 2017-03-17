@@ -44,7 +44,7 @@ void ListAddHead(TListHead* head, TListHead* ptNew) {
 }
 
 EN_RETURN_CODE ListDel(TListHead* pNode) {
-    if (listEmpty(pNode)) {
+    if (ListEmpty(pNode)) {
         return EN_RETURN_LIST_EMPTY;
     }
 
